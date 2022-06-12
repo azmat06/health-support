@@ -57,8 +57,9 @@ def contact_us(request):
             email,
             message,
             name,
-            ['internalmail@gmail.com'],
+            ['azu.dev.01@gmail.com'],
         )
+        # print("success")
         # return render(request, 'contact_us.html')
         messages.add_message(request, messages.SUCCESS, f"Dear {name}, your request has been sent to us, we will get back to you through your email: '{email}' soon.")
         return HttpResponseRedirect(request.path)
@@ -123,6 +124,14 @@ class ManageAppointmentTemplateView(TemplateView):
         }
         message = get_template('email.html').render(info)
 
+        email= EmailMessage(
+            "Appointment confirmation at Health Support DJP System",
+            message,
+            settings.EMAIL_HOST_USER,
+            [appointment.email],
+        )
+        email.content_subtype= "html"
+        email.send()
 
         messages.add_message(request, messages.SUCCESS, f"Patient {appointment.fname}'s appointment has been set for {date}")
         return HttpResponseRedirect(request.path)
