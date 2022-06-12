@@ -36,7 +36,7 @@ class AppointmentTemplateView(TemplateView):
         )
         appointment.save()
 
-        messages.add_message(request,messages.SUCCESS, f"thank you {fname} {lname}. We will confirm you your apointment through your email: {email} soon!")
+        messages.add_message(request,messages.SUCCESS, f"Thank you {fname} {lname}. We will confirm you your appointment through your email: {email} soon!")
         return HttpResponseRedirect(request.path)
 
 
